@@ -1,0 +1,13 @@
+C:\Users\zlatk\Desktop\chesster\bin\Debug\netcoreapp3.1\chesster.exe
+C:\Users\zlatk\Desktop\chesster\bin\Debug\netcoreapp3.1\chesster.deps.json
+C:\Users\zlatk\Desktop\chesster\bin\Debug\netcoreapp3.1\chesster.runtimeconfig.json
+C:\Users\zlatk\Desktop\chesster\bin\Debug\netcoreapp3.1\chesster.runtimeconfig.dev.json
+C:\Users\zlatk\Desktop\chesster\bin\Debug\netcoreapp3.1\chesster.dll
+C:\Users\zlatk\Desktop\chesster\bin\Debug\netcoreapp3.1\chesster.pdb
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.csprojAssemblyReference.cache
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.AssemblyInfoInputs.cache
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.AssemblyInfo.cs
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.csproj.CoreCompileInputs.cache
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.dll
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.pdb
+C:\Users\zlatk\Desktop\chesster\obj\Debug\netcoreapp3.1\chesster.genruntimeconfig.cache
