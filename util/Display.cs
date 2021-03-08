@@ -8,13 +8,14 @@ namespace Chesster
         {
             for (int i = 0; i < 64; i++)
             {
-                int index = Converter.From64To120[i];
-                string symbol = GetPieceSymbol(pieces[index]);
-                Console.Write(symbol);
-                if (i % 7 == 0)
+                if (i % 8 == 0)
                 {
                     Console.WriteLine();
                 }
+                int index = Converter.From64To120[i];
+                string symbol = GetPieceSymbol(pieces[index]);
+                Console.Write(symbol);
+
             }
         }
 
@@ -23,29 +24,33 @@ namespace Chesster
             switch (piece)
             {
                 case Piece.Empty:
-                    return " ";
+                    return "--";
                 case Piece.wP:
-                    return "wP";
+                    return "♙";
                 case Piece.wN:
-                    return "wN";
+                    return "♘";
+                case Piece.wR:
+                    return "♖";
                 case Piece.wB:
-                    return "wB";
+                    return "♗";
                 case Piece.wQ:
-                    return "wQ";
+                    return "♕";
                 case Piece.wK:
-                    return "wK";
+                    return "♔";
                 case Piece.bP:
-                    return "bP";
+                    return "♟";
+                case Piece.bR:
+                    return "♜";
                 case Piece.bN:
-                    return "bN";
+                    return "♞";
                 case Piece.bB:
-                    return "bB";
+                    return "♝";
                 case Piece.bQ:
-                    return "bQ";
+                    return "♛";
                 case Piece.bK:
-                    return "bK";
+                    return "♚";
                 default:
-                    return "err";
+                    return "er";
             }
         }
     }

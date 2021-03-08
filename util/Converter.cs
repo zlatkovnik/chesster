@@ -24,7 +24,7 @@ namespace Chesster
             61, 66, 63, 64, 65, 66, 67, 68,
             71, 77, 73, 74, 75, 76, 77, 78,
             81, 88, 83, 84, 85, 86, 87, 88,
-            91, 99, 93, 94, 95, 96, 97, 98
+            91, 92, 93, 94, 95, 96, 97, 98
         };
 
         public static int FileRankToSquare(int file, int rank)
