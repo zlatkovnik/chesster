@@ -11,9 +11,11 @@ namespace Chesster
             int file = File.A;
             int rank = Rank.r8;
             int stream = 0;
+            int sq;
             while (code[stream] != ' ')
             {
                 char c = code[stream];
+                sq = Converter.FileRankToSquare(file, rank);
                 switch (c)
                 {
                     case '/':
@@ -21,51 +23,57 @@ namespace Chesster
                         file = File.A;
                         break;
                     case 'r':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.bR;
+                        board.Pieces[sq] = Piece.bR;
                         file++;
                         break;
                     case 'n':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.bN;
+                        board.Pieces[sq] = Piece.bN;
                         file++;
                         break;
                     case 'b':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.bB;
+                        board.Pieces[sq] = Piece.bB;
                         file++;
                         break;
                     case 'q':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.bQ;
+                        board.Pieces[sq] = Piece.bQ;
                         file++;
                         break;
                     case 'k':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.bK;
+                        board.Pieces[sq] = Piece.bK;
                         file++;
                         break;
                     case 'p':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.bP;
+                        board.Pieces[sq] = Piece.bP;
+                        ulong bp = 1UL << Converter.From120To64[sq];
+                        board.Pawns[Color.Black] |= bp;
+                        board.Pawns[Color.Both] |= bp;
                         file++;
                         break;
                     case 'R':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.wR;
+                        board.Pieces[sq] = Piece.wR;
                         file++;
                         break;
                     case 'N':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.wN;
+                        board.Pieces[sq] = Piece.wN;
                         file++;
                         break;
                     case 'B':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.wB;
+                        board.Pieces[sq] = Piece.wB;
                         file++;
                         break;
                     case 'Q':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.wQ;
+                        board.Pieces[sq] = Piece.wQ;
                         file++;
                         break;
                     case 'K':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.wK;
+                        board.Pieces[sq] = Piece.wK;
                         file++;
                         break;
                     case 'P':
-                        board.Pieces[Converter.FileRankToSquare(file, rank)] = Piece.wP;
+                        board.Pieces[sq] = Piece.wP;
+                        ulong wp = 1UL << Converter.From120To64[sq];
+                        board.Pawns[Color.White] |= wp;
+                        board.Pawns[Color.Both] |= wp;
                         file++;
                         break;
                     default:

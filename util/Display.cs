@@ -17,6 +17,7 @@ namespace Chesster
                 Console.Write(symbol);
 
             }
+            Console.WriteLine();
         }
 
         public static string GetPieceSymbol(int piece)
@@ -52,6 +53,35 @@ namespace Chesster
                 default:
                     return "er";
             }
+        }
+
+        public static void PrintBitBoards(ulong[] pawns)
+        {
+            Console.WriteLine("Bit boards:");
+            ulong shift = 1UL;
+            int rank = 0;
+            int file = 0;
+            int sq = 0;
+            int sq64 = 0;
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (rank = Rank.r8; rank >= Rank.r1; --rank)
+                {
+                    for (file = File.A; file <= File.H; file++)
+                    {
+                        sq = Converter.FileRankToSquare(file, rank);
+                        sq64 = Converter.From120To64[sq];
+                        if (((shift << sq64) & pawns[i]) != 0UL)
+                            Console.Write('X');
+                        else
+                            Console.Write('-');
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
     }
 }
