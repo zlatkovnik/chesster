@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Chesster
 {
     public static class FEN
@@ -5,8 +7,10 @@ namespace Chesster
         //Black is lower letter
         //FORMAT {PIECES} {SIDE} {CASTLE} {EN PASSANT} {50 TURN RULE} {MOVES (increment after black)}
         public const string StandardFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        public const string TestFEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
         public static void CodeToBoard(string code, Board board)
         {
+            board.ResetBoard();
             //For board
             int file = File.A;
             int rank = Rank.r8;
@@ -78,6 +82,10 @@ namespace Chesster
                         break;
                     default:
                         file += c - '0';
+                        for (int i = 0; i < c - '0'; i++)
+                        {
+                            board.Pieces[sq + i] = Piece.Empty;
+                        }
                         break;
                 }
                 stream++;
@@ -85,21 +93,22 @@ namespace Chesster
             stream++;
             board.Side = (code[stream] == 'w') ? Color.White : Color.Black;
             stream++;
+            stream++;
             while (code[stream] != ' ')
             {
                 switch (code[stream])
                 {
                     case 'K':
-                        board.CastlePermission = Castle.WhiteKing;
+                        board.CastlePermission |= Castle.WhiteKing;
                         break;
                     case 'Q':
-                        board.CastlePermission = Castle.WhiteQueen;
+                        board.CastlePermission |= Castle.WhiteQueen;
                         break;
                     case 'k':
-                        board.CastlePermission = Castle.BlackKing;
+                        board.CastlePermission |= Castle.BlackKing;
                         break;
                     case 'q':
-                        board.CastlePermission = Castle.BlackQueen;
+                        board.CastlePermission |= Castle.BlackQueen;
                         break;
                     default:
                         break;
@@ -107,19 +116,13 @@ namespace Chesster
                 stream++;
             }
             stream++;
-            if (code[stream] == '-')
+            if (code[stream] != '-')
             {
-                board.EnPassant = -1;
-            }
-            else
-            {
-                string s = "";
-                while (code[stream] != ' ')
-                {
-                    s += code[stream];
-                    stream++;
-                }
-                board.EnPassant = StringToNumber(s);
+                file = code[stream] - 'a';
+                rank = code[stream + 1] - '1';
+                Debug.Assert(file >= File.A && file <= File.H);
+                Debug.Assert(rank >= Rank.r1 && rank <= Rank.r8);
+                board.EnPassant = Util.FileRankToSquare(file, rank);
             }
             stream++;
             string str = "";
@@ -129,6 +132,8 @@ namespace Chesster
                 stream++;
             }
             board.FiftyMove = StringToNumber(str);
+
+            board.PositionKey = Util.GeneratePositionKey(board);
         }
 
         private static int StringToNumber(string str)

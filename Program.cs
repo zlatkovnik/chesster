@@ -8,10 +8,9 @@ namespace Chesster
         {
             Board board = new Board();
             board.InitializeBoard();
-            Display.PrintBoard(board.Pieces);
-            //Display.PrintBitBoards(board.Pawns);
-            int count = Util.CountBits(board.Pawns[0]);
-            Console.WriteLine(count);
+            FEN.CodeToBoard(FEN.TestFEN, board);
+            Display.PrintBoard(board);
+            Display.PrintBitBoards(board.Pawns);
         }
     }
 }

@@ -26,13 +26,43 @@ namespace Chesster
         };
         public static int[] From64To120 = {
             21, 22, 23, 24, 25, 26, 27, 28,
-            31, 33, 33, 34, 35, 36, 37, 38,
-            41, 44, 43, 44, 45, 46, 47, 48,
-            51, 55, 53, 54, 55, 56, 57, 58,
-            61, 66, 63, 64, 65, 66, 67, 68,
-            71, 77, 73, 74, 75, 76, 77, 78,
-            81, 88, 83, 84, 85, 86, 87, 88,
+            31, 32, 33, 34, 35, 36, 37, 38,
+            41, 42, 43, 44, 45, 46, 47, 48,
+            51, 52, 53, 54, 55, 56, 57, 58,
+            61, 62, 63, 64, 65, 66, 67, 68,
+            71, 72, 73, 74, 75, 76, 77, 78,
+            81, 82, 83, 84, 85, 86, 87, 88,
             91, 92, 93, 94, 95, 96, 97, 98
+        };
+
+        public static int[] SquareToFile = {
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100,   0,   1,   2,   3,   4,   5,   6,   7, 100,
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100
+        };
+
+        public static int[] SquareToRank = {
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100,   0,   0,   0,   0,   0,   0,   0,   0, 100,
+            100,   1,   1,   1,   1,   1,   1,   1,   1, 100,
+            100,   2,   2,   2,   2,   2,   2,   2,   2, 100,
+            100,   3,   3,   3,   3,   3,   3,   3,   3, 100,
+            100,   4,   4,   4,   4,   4,   4,   4,   4, 100,
+            100,   5,   5,   5,   5,   5,   5,   5,   5, 100,
+            100,   6,   6,   6,   6,   6,   6,   6,   6, 100,
+            100,   7,   7,   7,   7,   7,   7,   7,   7, 100,
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100
         };
 
         public static int FileRankToSquare(int file, int rank)
@@ -103,7 +133,7 @@ namespace Chesster
             for (int sq = 0; sq < 120; ++sq)
             {
                 piece = board.Pieces[sq];
-                if (piece != Position.NoSquare && piece != Piece.Empty)
+                if (piece != Piece.Empty && piece != Position.OffBoard)
                 {
                     Debug.Assert(piece >= Piece.wP && piece <= Piece.bK);
                     finalKey ^= PieceKeys[piece, sq];
@@ -156,6 +186,17 @@ namespace Chesster
         }
         #endregion
 
+        #region Pieces
+        public static bool[] PieceBig = { false, false, true, true, true, true, true, false, true, true, true, true, true };
+        public static bool[] PieceMaj = { false, false, false, false, true, true, true, false, false, false, true, true, true };
+        public static bool[] PieceMin = { false, false, true, true, false, false, false, false, true, true, false, false, false };
+        public static int[] PieceVal = { 0, 100, 325, 325, 550, 1000, 50000, 100, 325, 325, 550, 1000, 50000 };
+        public static int[] PieceCol = {
+            Color.Both, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White,
+            Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black
+        };
 
+
+        #endregion
     }
 }
