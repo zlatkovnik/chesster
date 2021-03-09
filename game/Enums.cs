@@ -119,6 +119,9 @@ namespace Chesster
         public const int F8 = 96;
         public const int G8 = 97;
         public const int H8 = 98;
+
+        public static int NoSquare = 99;
+        public static int OffBoard = 100;
     }
 
     public static class Castle

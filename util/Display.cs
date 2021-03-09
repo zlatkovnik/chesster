@@ -12,7 +12,7 @@ namespace Chesster
                 {
                     Console.WriteLine();
                 }
-                int index = Converter.From64To120[i];
+                int index = Util.From64To120[i];
                 string symbol = GetPieceSymbol(pieces[index]);
                 Console.Write(symbol);
 
@@ -70,8 +70,8 @@ namespace Chesster
                 {
                     for (file = File.A; file <= File.H; file++)
                     {
-                        sq = Converter.FileRankToSquare(file, rank);
-                        sq64 = Converter.From120To64[sq];
+                        sq = Util.FileRankToSquare(file, rank);
+                        sq64 = Util.From120To64[sq];
                         if (((shift << sq64) & pawns[i]) != 0UL)
                             Console.Write('X');
                         else

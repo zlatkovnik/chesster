@@ -52,7 +52,9 @@ namespace Chesster
 
         public void InitializeBoard()
         {
+            Util.InitUtil();
             FEN.CodeToBoard(FEN.StandardFEN, this);
+
         }
     }
 }

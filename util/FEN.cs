@@ -15,7 +15,7 @@ namespace Chesster
             while (code[stream] != ' ')
             {
                 char c = code[stream];
-                sq = Converter.FileRankToSquare(file, rank);
+                sq = Util.FileRankToSquare(file, rank);
                 switch (c)
                 {
                     case '/':
@@ -44,7 +44,7 @@ namespace Chesster
                         break;
                     case 'p':
                         board.Pieces[sq] = Piece.bP;
-                        ulong bp = 1UL << Converter.From120To64[sq];
+                        ulong bp = 1UL << Util.From120To64[sq];
                         board.Pawns[Color.Black] |= bp;
                         board.Pawns[Color.Both] |= bp;
                         file++;
@@ -71,7 +71,7 @@ namespace Chesster
                         break;
                     case 'P':
                         board.Pieces[sq] = Piece.wP;
-                        ulong wp = 1UL << Converter.From120To64[sq];
+                        ulong wp = 1UL << Util.From120To64[sq];
                         board.Pawns[Color.White] |= wp;
                         board.Pawns[Color.Both] |= wp;
                         file++;

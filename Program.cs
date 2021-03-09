@@ -8,9 +8,9 @@ namespace Chesster
         {
             Board board = new Board();
             board.InitializeBoard();
-            //Display.PrintBoard(board.Pieces);
+            Display.PrintBoard(board.Pieces);
             //Display.PrintBitBoards(board.Pawns);
-            int count = Bitboard.CountBits(board.Pawns[0]);
+            int count = Util.CountBits(board.Pawns[0]);
             Console.WriteLine(count);
         }
     }
