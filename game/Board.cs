@@ -53,8 +53,46 @@ namespace Chesster
         public void InitializeBoard()
         {
             Util.InitUtil();
-            FEN.CodeToBoard(FEN.StandardFEN, this);
+            //FEN.CodeToBoard(FEN.StandardFEN, this);
+            ResetBoard();
+        }
 
+        public void ResetBoard()
+        {
+            for (int i = 0; i < 120; i++)
+            {
+                Pieces[i] = Position.OffBoard;
+            }
+            for (int i = 0; i < 64; i++)
+            {
+                Pieces[Util.From64To120[i]] = Piece.Empty;
+            }
+
+            for (int i = 0; i < 3; ++i)
+            {
+                BigPieces[i] = 0;
+                MajorPieces[i] = 0;
+                MinorPieces[i] = 0;
+                Pawns[i] = 0UL;
+            }
+
+            for (int i = 0; i < 13; ++i)
+            {
+                NumberOfPieces[i] = 0;
+            }
+
+            KingSquare[Color.White] = KingSquare[Color.Black] = Position.NoSquare;
+
+            Side = Color.Both;
+            EnPassant = Position.NoSquare;
+            FiftyMove = 0;
+
+            Ply = 0;
+            HistoryPly = 0;
+
+            CastlePermission = 0;
+
+            PositionKey = 0UL;
         }
     }
 }
