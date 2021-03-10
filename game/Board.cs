@@ -224,5 +224,164 @@ namespace Chesster
 
             return false;
         }
+
+        public void AddQuietMove(int move, ref Moves moves)
+        {
+            moves.List[moves.Count].Code = move;
+            moves.List[moves.Count].Score = 0;
+            moves.Count++;
+        }
+
+        public void AddCaptureMove(int move, ref Moves moves)
+        {
+            moves.List[moves.Count].Code = move;
+            moves.List[moves.Count].Score = 0;
+            moves.Count++;
+        }
+
+        public void AddEnPassantMove(int move, ref Moves moves)
+        {
+            moves.List[moves.Count].Code = move;
+            moves.List[moves.Count].Score = 0;
+            moves.Count++;
+        }
+
+        public void GenerateAllMoves(ref Moves moves)
+        {
+            moves.Count = 0;
+            if (Side == Color.White)
+            {
+                for (int pceNum = 0; pceNum < NumberOfPieces[Piece.wP]; ++pceNum)
+                {
+                    int sq = PieceList[Piece.wP, pceNum];
+                    //ASSERT(SqOnBoard(sq));
+
+                    if (Pieces[sq + 10] == Piece.Empty)
+                    {
+                        AddWhitePawnMove(sq, sq + 10, ref moves);
+                        if (Util.SquareToRank[sq] == Rank.r2 && Pieces[sq + 20] == Piece.Empty)
+                        {
+                            AddQuietMove(MoveToCode(sq, (sq + 20), Piece.Empty, Piece.Empty, Move.PawnStartFlag), ref moves);
+                        }
+                    }
+                    if (Pieces[sq + 9] != Position.OffBoard && Util.PieceCol[Pieces[sq + 9]] == Color.Black)
+                    {
+                        AddWhitePawnCaptureMove(sq, sq + 9, Pieces[sq + 9], ref moves);
+                    }
+                    if (Pieces[sq + 11] != Position.OffBoard && Util.PieceCol[Pieces[sq + 11]] == Color.Black)
+                    {
+                        AddWhitePawnCaptureMove(sq, sq + 11, Pieces[sq + 11], ref moves);
+                    }
+                    if (sq + 9 == EnPassant)
+                    {
+                        AddCaptureMove(MoveToCode(sq, sq + 9, Piece.Empty, Piece.Empty, Move.EnPassantFlag), ref moves);
+                    }
+                    if (sq + 11 == EnPassant)
+                    {
+                        AddCaptureMove(MoveToCode(sq, sq + 11, Piece.Empty, Piece.Empty, Move.EnPassantFlag), ref moves);
+                    }
+
+                }
+            }
+            else
+            {
+                for (int pceNum = 0; pceNum < NumberOfPieces[Piece.bP]; ++pceNum)
+                {
+                    int sq = PieceList[Piece.bP, pceNum];
+                    //ASSERT(SqOnBoard(sq));
+
+                    if (Pieces[sq - 10] == Piece.Empty)
+                    {
+                        AddBlackPawnMove(sq, sq - 10, ref moves);
+                        if (Util.SquareToRank[sq] == Rank.r7 && Pieces[sq - 20] == Piece.Empty)
+                        {
+                            AddQuietMove(MoveToCode(sq, (sq - 20), Piece.Empty, Piece.Empty, Move.PawnStartFlag), ref moves);
+                        }
+                    }
+                    if (Pieces[sq - 9] != Position.OffBoard && Util.PieceCol[Pieces[sq - 9]] == Color.White)
+                    {
+                        AddBlackPawnCaptureMove(sq, sq - 9, Pieces[sq - 9], ref moves);
+                    }
+                    if (Pieces[sq - 11] != Position.OffBoard && Util.PieceCol[Pieces[sq - 11]] == Color.White)
+                    {
+                        AddBlackPawnCaptureMove(sq, sq - 11, Pieces[sq - 11], ref moves);
+                    }
+                    if (sq - 9 == EnPassant)
+                    {
+                        AddCaptureMove(MoveToCode(sq, sq - 9, Piece.Empty, Piece.Empty, Move.EnPassantFlag), ref moves);
+                    }
+                    if (sq - 11 == EnPassant)
+                    {
+                        AddCaptureMove(MoveToCode(sq, sq - 11, Piece.Empty, Piece.Empty, Move.EnPassantFlag), ref moves);
+                    }
+
+                }
+            }
+        }
+
+        private void AddWhitePawnCaptureMove(int from, int to, int capture, ref Moves moves)
+        {
+            if (Util.SquareToRank[from] == Rank.r7)
+            {
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.wQ, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.wR, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.wB, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.wN, 0), ref moves);
+            }
+            else
+            {
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.Empty, 0), ref moves);
+            }
+        }
+
+        private void AddWhitePawnMove(int from, int to, ref Moves moves)
+        {
+            if (Util.SquareToRank[from] == Rank.r7)
+            {
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.wQ, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.wR, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.wB, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.wN, 0), ref moves);
+            }
+            else
+            {
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.Empty, 0), ref moves);
+            }
+        }
+
+        private void AddBlackPawnCaptureMove(int from, int to, int capture, ref Moves moves)
+        {
+            if (Util.SquareToRank[from] == Rank.r2)
+            {
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.bQ, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.bR, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.bB, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.bN, 0), ref moves);
+            }
+            else
+            {
+                AddCaptureMove(MoveToCode(from, to, capture, Piece.Empty, 0), ref moves);
+            }
+        }
+
+        private void AddBlackPawnMove(int from, int to, ref Moves moves)
+        {
+            if (Util.SquareToRank[from] == Rank.r2)
+            {
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.bQ, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.bR, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.bB, 0), ref moves);
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.bN, 0), ref moves);
+            }
+            else
+            {
+                AddCaptureMove(MoveToCode(from, to, Piece.Empty, Piece.Empty, 0), ref moves);
+            }
+        }
+
+        private int MoveToCode(int from, int to, int capture, int promotion, int flag)
+        {
+            return from | (to << 7) | (capture << 14) | (promotion << 20) | flag;
+        }
     }
 }
