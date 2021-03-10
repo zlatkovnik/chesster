@@ -198,5 +198,19 @@ namespace Chesster
 
 
         #endregion
+
+        #region Attack
+        public static int[] KnightDirection = { -8, -19, -21, -12, 8, 19, 21, 12 };
+        public static int[] RookDirection = { -1, -10, 1, 10 };
+        public static int[] BishopDirection = { -9, -11, 11, 9 };
+        public static int[] KingDirection = { -1, -10, 1, 10, -9, -11, 11, 9 };
+
+        public static bool[] PieceKnight = { false, false, true, false, false, false, false, false, true, false, false, false, false };
+        public static bool[] PieceKing = { false, false, false, false, false, false, true, false, false, false, false, false, true };
+        public static bool[] PieceRookQueen = { false, false, false, false, true, true, false, false, false, false, true, true, false };
+        public static bool[] PieceBishopQueen = { false, false, false, true, false, true, false, false, false, true, false, true, false };
+
+
+        #endregion
     }
 }

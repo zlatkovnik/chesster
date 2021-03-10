@@ -138,5 +138,91 @@ namespace Chesster
             }
 
         }
+
+        public bool SquareAttacked(int sq, int side)
+        {
+
+            //int pce, index, t_sq, dir;
+
+            // pawns
+            if (side == Color.White)
+            {
+                if (Pieces[sq - 11] == Piece.wP || Pieces[sq - 9] == Piece.wP)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (Pieces[sq + 11] == Piece.bP || Pieces[sq + 9] == Piece.bP)
+                {
+                    return true;
+                }
+            }
+
+            //Knights
+            for (int i = 0; i < 8; i++)
+            {
+                int piece = Pieces[sq + Util.KnightDirection[i]];
+                if (piece != Position.OffBoard && Util.PieceKnight[piece] && Util.PieceCol[piece] == side)
+                {
+                    return true;
+                }
+            }
+
+            //Rooks Queens
+            for (int i = 0; i < 4; ++i)
+            {
+                int dir = Util.RookDirection[i];
+                int tempSq = sq + dir;
+                int piece = Pieces[tempSq];
+                while (piece != Position.OffBoard)
+                {
+                    if (piece != Piece.Empty)
+                    {
+                        if (piece != Position.OffBoard && Util.PieceRookQueen[piece] && Util.PieceCol[piece] == side)
+                        {
+                            return true;
+                        }
+                        break;
+                    }
+                    tempSq += dir;
+                    piece = Pieces[tempSq];
+                }
+            }
+
+            // bishops, queens
+            for (int i = 0; i < 4; ++i)
+            {
+                int dir = Util.BishopDirection[i];
+                int tempSq = sq + dir;
+                int piece = Pieces[tempSq];
+                while (piece != Position.OffBoard)
+                {
+                    if (piece != Piece.Empty)
+                    {
+                        if (piece != Position.OffBoard && Util.PieceBishopQueen[piece] && Util.PieceCol[piece] == side)
+                        {
+                            return true;
+                        }
+                        break;
+                    }
+                    tempSq += dir;
+                    piece = Pieces[tempSq];
+                }
+            }
+
+            // kings
+            for (int i = 0; i < 8; ++i)
+            {
+                int piece = Pieces[sq + Util.KingDirection[i]];
+                if (piece != Position.OffBoard && Util.PieceKing[piece] && Util.PieceCol[piece] == side)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
